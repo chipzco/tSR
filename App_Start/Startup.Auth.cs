@@ -63,7 +63,9 @@ namespace tSR
             //    ClientId = "",
             //    ClientSecret = ""
             //});
+            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.MapSignalR();
+            
         }
     }
 }

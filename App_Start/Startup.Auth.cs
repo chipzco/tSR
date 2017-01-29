@@ -6,6 +6,7 @@ using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
 using tSR.Models;
+using System.Threading.Tasks;
 
 namespace tSR
 {
@@ -63,9 +64,27 @@ namespace tSR
             //    ClientId = "",
             //    ClientSecret = ""
             //});
-            app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
+            var policy = new System.Web.Cors.CorsPolicy()
+            {
+                AllowAnyHeader = false,
+                AllowAnyMethod = true,
+                SupportsCredentials = true
+            };
+
+            policy.Origins.Add("http://localhost:4200"); //be sure to include the port:
+                                                         //example: "http://localhost:8081"
+
+            app.UseCors(new Microsoft.Owin.Cors.CorsOptions{
+                PolicyProvider = new Microsoft.Owin.Cors.CorsPolicyProvider
+                {
+                    PolicyResolver = a => Task.FromResult(policy)
+                }
+            });        
+        
             app.MapSignalR();
             
         }
+        
+        
     }
 }

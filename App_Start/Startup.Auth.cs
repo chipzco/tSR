@@ -71,8 +71,9 @@ namespace tSR
                 SupportsCredentials = true
             };
 
-            policy.Origins.Add("http://localhost:4200"); //be sure to include the port:
-                                                         //example: "http://localhost:8081"
+            policy.Origins.Add("http://localhost:4200"); //be sure to include the port: example: "http://localhost:8081"
+            policy.Origins.Add("http://localhost"); //be sure to include the port:
+            policy.Origins.Add("http://octo.computerwebservices.net"); //be sure to include the port:
 
             app.UseCors(new Microsoft.Owin.Cors.CorsOptions{
                 PolicyProvider = new Microsoft.Owin.Cors.CorsPolicyProvider
